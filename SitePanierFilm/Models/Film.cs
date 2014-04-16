@@ -16,7 +16,7 @@ namespace SitePanierFilm.Models
     {
         public string Name { get; set; }
         public string Author { get; set; }
-        public decimal Year { get; set; }
+        public int Year { get; set; }
         public int Category_id { get; set; }
         public int Id { get; set; }
         public string Img_url { get; set; }

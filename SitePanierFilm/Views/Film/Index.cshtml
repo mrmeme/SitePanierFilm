@@ -45,6 +45,8 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Img_url)
+            <input type="image" src="~/Ressources/Img/@item.Img_url" />
+            <input:img src="../../Ressources/Img/@item.Img_url" />
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
