@@ -40,8 +40,15 @@ namespace SitePanierFilm.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Category_id = new SelectList(db.Category, "Id", "Name");
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.Category_id = new SelectList(db.Category, "Id", "Name");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         //
@@ -67,13 +74,21 @@ namespace SitePanierFilm.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Film film = db.Film.Find(id);
-            if (film == null)
+            if (Request.IsAuthenticated)
             {
-                return HttpNotFound();
+                Film film = db.Film.Find(id);
+                if (film == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Category_id = new SelectList(db.Category, "Id", "Name", film.Category_id);
+                return View(film);
+
             }
-            ViewBag.Category_id = new SelectList(db.Category, "Id", "Name", film.Category_id);
-            return View(film);
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         //
@@ -98,12 +113,19 @@ namespace SitePanierFilm.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Film film = db.Film.Find(id);
-            if (film == null)
+            if (Request.IsAuthenticated)
             {
-                return HttpNotFound();
+                Film film = db.Film.Find(id);
+                if (film == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(film);
             }
-            return View(film);
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         //
